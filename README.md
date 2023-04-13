@@ -1,10 +1,8 @@
 # Kubernetes - Deep dive
 
-<p align="center">
-    <img src="./assets/kubernetes_logo.png" height="300">
-</p>
+![k8s](./assets/kubernetes_logo.png)
 
-In this repository, we gonna take a deep dive in the main concepts/components of
+In this repository we gonna take a deep dive in the main concepts/components of
 Kubernetes, the most adopted container orchestrator nowadays.
 
 ## Before you start
@@ -14,7 +12,8 @@ For instance, you can use the **kind-config.yaml** file to set a local cluster w
 [Kind](https://kind.sigs.k8s.io/) by running the
 `kind create cluster --config=config/kind-config.yaml` command.
 
-## Topics
+## Sections
 
-- [Architecture](./docs/architecture.md)
-- [Pods](./docs/k8s-pods.md)
+- [Architecture](./01-architecture/README.md)
+- [Namespaces](./02-namespaces/README.md)
+- [Pods](./03-pods/README.md)

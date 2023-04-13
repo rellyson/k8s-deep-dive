@@ -1,4 +1,4 @@
-# Kubernetes architecture
+# Architecture
 
 A Kubernetes cluster consists of a **control plane** and a set of worker machines
 (commonly referred as **nodes**).
@@ -9,9 +9,7 @@ decisions about the cluster as well as detecting and responding to cluster event
 **Nodes** run containerized applications. Every cluster has
 **at least one worker node**.
 
-<center>
-    <img src="../assets/k8s-cluster.png">
-</center>
+![kubernetes architecture](../assets/k8s-cluster.png)
 
 ## Components
 
