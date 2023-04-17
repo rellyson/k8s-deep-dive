@@ -12,3 +12,7 @@ spec:
         - "redis-server"
       args:
         - "--logLevel debug"
+      ports:
+        - name: def-red-port
+        - containerPort: 6379
+          hostPort: 6379

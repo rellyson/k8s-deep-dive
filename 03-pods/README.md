@@ -1,65 +1,44 @@
-# Pods - Lifecycle, containers, conditions and termination
+# Pods
 
-Pods are designed to be **ephemeral** (disposable). They
-are only **scheduled once** in their lifetime. Once a Pod
-is scheduled (assigned) to a Node, the Pod runs on that
-Node until **it stops or is terminated**.
+<div align="center">
 
-Pods follow a **defined lifecycle**, starting in the _Pending_
-phase, moving through _Running_ and then through either
-_Suceeded_ or _Failed_.
+![k8s pods](../assets/pod.png)
 
-Pods **do not self-heal**. If a Pod is scheduled to a node
-and it fails, the Pod is deleted. Kubernetes uses a
-higher-level abstraction, called a **controller**, that handles
-the work of managing the relatively disposable Pod instances.
+</div>
 
-## Pod lifecycle phase
+Pods are a atomic, group of **one or more containers**, with shared storage
+and network resources, and a specification for how to run the containers.
 
-The phase of a Pod is a simple, high-level summary of **where
-the Pod is** in its lifecycle.
+A Pod is **similar** to a set of containers with shared namespaces and
+shared filesystem volumes.
 
-<img src="../assets/pod-lifecycle.png" />
+Pods are attached to a [container runtime](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)
+to run containers. **Docker** is the most commonly known runtime but there
+are other options such as _containerd_ and _cri-o_.
 
-## Pod CrashLoopBackoff
+## Managing Pods
 
-When a Pod gets stuck on a restart loop (it tries to
-start but crashes and it is restarted over and over again),
-Kubernetes **set its state as _CrashLoopBackOff_**.
+Pods are generally **not created directly** since they are design
+to be **disposable**. Instead, we abstract Pods using _workloads_,
+such as _Deployment_, _Job_ or _StatefulSet_.
 
-Kubernetes **will wait an increase back-off time between
-restarts** to give you a chance to fix the error. As such,
-CrashLoopBackOff is not an error on itself, but indicates
-that there is an **error preventing Pod from
-starting properly**.
+## Pod lifecycle
 
-## Pod container
+It is **very important** to understand _Pod lifecycle_ and how it works.
+There is a separed topic where we talk about lifecycle.
+You can read it [here](./POD-LIFECYCLE.md).
 
-Kubernetes also tracks the state of each container inside
-a Pod. Once the scheduler assigns a Pod to a Node, the
-kubelet starts **creating containers** for that Pod using
-the container runtime.
+## Pod creation
 
-Containers follow a **defined state**, starting in the _Waiting_
-state, moving through _Running_, and then through _Terminated_.
+The diagram below illustrates how Pods are created in Kubernetes:
 
-You can use container **lifecycle hooks** to trigger events to run
-at **certain points** in a container's lifecycle.
+<div align="center">
 
-### Pod container state
+![pod creation flow](../assets/pod-creation-flow.png)
 
-You can track what you container is currently doing by using
-container states:
+</div>
 
-<img src="../assets/pod-container-state.png" />
+## Pod definition
 
-## Init Containers
-
-Init containers are specialized containers that **run before
-app containers** in a Pod. They can contain utilities or setup
-scripts **not present** in the app container image.
-
-Init containers are **exactly** like regular containers, except:
-
-- Init containers always run to completion.
-- Each init container must complete successfully before the next one starts.
+Pods are crated using the Kubernetes specification [v1.Pod](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#pod-v1-core).
+A minimal example can be found in the `pod.yaml` file.
